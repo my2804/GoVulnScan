@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Vulnerability Scanner</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg-page: #0B0A1A;
+  --bg-card: #1B193C;
+  --bg-card-alt: #221F4A;
+  --bg-input: #221F4A;
+
+  --text-primary: #E6E8FF;
+  --text-secondary: #B6B8E6;
+  --text-muted: #7F82B3;
+
+  --border-color: #333468;
+
+  --accent-purple: #6C5EF3;
+  --accent-purple-hover: #7C6BFF;
+  --accent-gradient: linear-gradient(135deg,#6C5EF3 0%, #BB48F5 45%, #47A0EE 100%);
+
+  --radius-md: 14px;
+  --radius-lg: 20px;
+
+  --shadow-card: 0 6px 30px rgba(0,0,0,0.45);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background:
+    radial-gradient(circle at 20% 20%, #1B193C 0%, transparent 40%),
+    radial-gradient(circle at 80% 10%, #4C459A 0%, transparent 35%),
+    linear-gradient(160deg,#0B0A1A 0%, #141233 100%);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+/* CARD */
+.container {
+  width: 100%;
+  max-width: 520px;
+  padding: 20px;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--accent-gradient);
+}
+
+/* TITLE */
+h1 {
+  margin: 0 0 10px;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+p {
+  margin: 0 0 25px;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+/* INPUT */
+.input-group {
+  display: flex;
+  gap: 10px;
+}
+
+input {
+  flex: 1;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  outline: none;
+  transition: 0.2s;
+}
+
+input:focus {
+  border-color: var(--accent-purple);
+  box-shadow: 0 0 0 3px rgba(108,94,243,0.3);
+}
+
+/* BUTTON */
+button {
+  background: var(--accent-purple);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 12px 18px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: var(--accent-purple-hover);
+}
+
+/* LOADING */
+.loading {
+  margin-top: 15px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  display: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <div class="card">
+    <h1>Vulnerability Scanner</h1>
+    <p>Enter an IP address or CIDR range to begin scanning.</p>
+
+    <form action="/scan" method="POST" onsubmit="showLoading()">
+      <div class="input-group">
+        <input 
+          type="text" 
+          name="target" 
+          placeholder="192.168.1.1 or 192.168.1.0/24" 
+          required
+        >
+        <button type="submit">Scan</button>
+      </div>
+    </form>
+
+    <div class="loading" id="loading">
+      Running scan... this may take a minute.
+    </div>
+  </div>
+</div>
+
+<script>
+function showLoading() {
+  document.getElementById("loading").style.display = "block";
+}
+</script>
+
+</body>
+</html>
